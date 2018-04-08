@@ -30,12 +30,11 @@ class RoomList extends Component {
 
     handleSubmit(event) {
        event.preventDefault();
-       if (this.state.name.length < 4){
-         console.log('Room name must be over 4 characters'
-         )
-       } else {
-       const roomsRef = this.props.firebase.database().ref('rooms');
-       const room = {
+         if (this.state.name.length < 4){
+           console.log('Room name must be over 4 characters')
+         } else {
+           const roomsRef = this.props.firebase.database().ref('rooms');
+           const room = {
          name: this.state.name
        }
        roomsRef.push(room);
@@ -53,8 +52,8 @@ class RoomList extends Component {
        <table className='applistsidebar'>
          <tbody className='listofroomstop'>
           <tr>
-             {this.state.rooms.map((rooms, index) =>
-              <td className='roomidlist'key={index}>{rooms.name}</td>
+             {this.state.rooms.map((room, index) =>
+              <td className='roomidlist'key={index} onClick={() => this.props.onRoomSelection(room)}>{room.name}</td>
             )}
           </tr>
          </tbody>
