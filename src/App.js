@@ -39,12 +39,7 @@ class App extends Component {
 
       <main className="active-chat-room">
            <h2>{this.state.selectedRoom.name}</h2>
-           {displayMessages ?
-                (<MessageList firebase={firebase}
-                  selectedRoom={this.state.selectedRoom.key}
-                   />) :
-
-                  (null)
+           {displayMessages ? (<MessageList firebase={firebase} selectedRoom={this.state.selectedRoom.key} />) : (null)
               }
             </main>
         </aside>
