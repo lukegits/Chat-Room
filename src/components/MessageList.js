@@ -7,7 +7,7 @@ class MessageList extends Component {
    super(props);
 
         this.messagesRef = this.props.firebase.database().ref('messages');
-        this.createNewMessage= this.createNewMessage.bind(this);
+        this.createMessage= this.createMessage.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -30,14 +30,13 @@ class MessageList extends Component {
          this.setState({
           content: event.target.value,
           sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
-          roomId: this.state.selectedRoom
+          roomId: this.props.selectedRoom
      })
        }
       handleSubmit(event) {
          event.preventDefault();
-
         }
-        createNewMessage(event) {
+      createMessage(event) {
            event.preventDefault();
             this.messagesRef.push({
              sentAt: this.state.sentAt,
@@ -46,18 +45,20 @@ class MessageList extends Component {
           });
         }
     render() {
+      console.log(this.state.roomId);
       const selectedRoom = this.props.selectedRoom;
       const messageList = this.state.messages
+
           .filter(message => message.roomId === selectedRoom)
           .map(message => {
           return <li className="current-chat-message" key={message.key}>  {message.content} </li>
           })
           return(
-            <div className="chat-messages">
+            <div className="messageschat">
               <ul>{messageList} </ul>
               <form className="messageform" onSubmit={this.handleSubmit}>
-                <input type ="text"  name="message" holder="New Message" value={this.state.content} onChange={this.handleChange}/>
-                <button type="submit" onClick={this.createNewMessage}>Send</button>
+                <input type ="text"  name="message" placeholder="New Message" value={this.state.content} onChange={this.handleChange}/>
+                <button type="submit" onClick={this.createMessage}>Send</button>
                 </form>
 
             </div>

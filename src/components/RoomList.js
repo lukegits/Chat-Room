@@ -28,6 +28,10 @@ class RoomList extends Component {
        this.setState({name: event.target.value})
      }
 
+     selectRoom(key){
+      this.state.selectedRoom(key);
+    }
+
     handleSubmit(event) {
        event.preventDefault();
          if (this.state.name.length < 4){
@@ -53,7 +57,7 @@ class RoomList extends Component {
          <tbody className='listofroomstop'>
           <tr>
              {this.state.rooms.map((room, index) =>
-              <td className='roomidlist'key={index} onClick={() => this.props.onRoomSelection(room)}>{room.name}</td>
+              <td className='roomidlist'key={room.key} onClick={(e) => this.props.onRoomSelection(room, e)}>{room.name}</td>
             )}
           </tr>
          </tbody>
