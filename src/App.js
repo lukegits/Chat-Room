@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import RoomList from './components/RoomList';
 import MessageList from './components/MessageList';
+import User from './components/User';
 
   // Initialize Firebase
 var config = {
@@ -17,9 +18,11 @@ firebase.initializeApp(config);
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      selectedRoom: ''
-    }
+      selectedRoom: '',
+      username: ''
+     }
   }
 
   handleRoomSelection(selectedRoom) {
@@ -34,6 +37,7 @@ class App extends Component {
       <div>
          <h3> Bloc Chat App </h3>
          <aside className="roomList">
+          <User furebase={firebase}/>
           <RoomList firebase={firebase}
             onRoomSelection={(selected) => this.handleRoomSelection(selected)}/>
 

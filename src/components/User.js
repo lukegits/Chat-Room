@@ -5,34 +5,34 @@ class User extends Component {
  constructor(props) {
    super(props);
 
-
         this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
         this.usernameSubmitHandler = this.usernameSubmitHandler.bind(this);
 
-        this.state = { username: ‘’ }
-}
-
-usernameChangeHandler(event) {
+        this.state = {
+          username: ''
+        }
+    }
+    usernameChangeHandler(event) {
     this.setState({ username: event.target.value });
-  }
-  usernameSubmitHandler(event) {
+    }
+    usernameSubmitHandler(event) {
     event.preventDefault();
     this.setState({ submitted: true, username: this.state.username });
-  }
+    }
+    signInWithPopup(){
+      const provider = new this.props.firebase.auth.GoogleAuthProvider();
+      this.props.firebase.auth().signInWithPopup( provider );
+
+    }
 
 
 render() {
     return (
       <form onSubmit={this.usernameSubmitHandler} className="username-container">
-        <h1>React Instant Chat</h1>
+        <h5>Chat Login</h5>
         <div>
-          <input
-            type="text"
-            onChange={this.usernameChangeHandler}
-            placeholder="Enter a username..."
-            required />
+          <button type="chatlogin" onClick={this.signInWithPopup}>Login</button>
         </div>
-        <input type="submit" value="Submit" />
       </form>
     );
   }
