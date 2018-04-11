@@ -19,12 +19,77 @@
 }
 
 .App-intro {
-  font-size: large;
+  font-size: medium;
 }
 
 .roomList {
-  text-align: center;
+  text-align: left;
 }
+
+.headerMain {
+  margin-left: 20px,20px,20px,20px, ;
+}
+
+.title {
+  border-style: dotted dashed solid double;
+  align-content: left;
+  text-decoration-style: wavy;
+  font-family: Gill Sans Extrabold, sans-serif;
+
+}
+
+.signintext {
+  padding-right: 100px;
+  text-align: right;
+  font-family: sans-serif;
+}
+
+.signButtons {
+  background-image: url('https://i.imgur.com/lyLbSI6.jpg');
+  border-style: dotted dashed solid double;
+  padding-right: 100px;
+  text-align: right;
+  font-family: sans-serif;
+}
+
+.createroom{
+  background-image:url('https://i.imgur.com/cvjC3v4.jpg');
+  border-style: solid;
+  color: white;
+  border-width: 20px;
+}
+
+.applistsidebar {
+ border-style: solid;
+}
+
+.listofroomstop {
+ border-style: solid;
+}
+
+.roomidlist {
+ border-style: groove;
+}
+
+.roomList {
+  border-style: groove;
+}
+
+.activeroom {
+  border-style: groove;
+}
+
+.messageform {
+  border-style: groove;
+}
+.messageschat{
+  border-style: groove;
+}
+.chatmessage{
+  border-style: groove;
+}
+
+
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
