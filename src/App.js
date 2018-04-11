@@ -32,7 +32,6 @@ class App extends Component {
     console.log(selectedRoom);
   }
   setUser(user){
-    debugger;
     this.setState({ user: user});
     // this.setState({ user: {displayName: 'Luke Chavez', email: 'luket.chavez@gmail.com'} });
  }
