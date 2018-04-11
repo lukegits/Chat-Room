@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import '../App.css';
 
 
 class MessageList extends Component {
@@ -13,33 +13,36 @@ class MessageList extends Component {
 
         this.state = {
           messages: [],
+          username: '',
           newMessage: '',
-          content:'',
-          sentAt:'',
-          roomId:''
+          content: '',
+          sentAt: '',
+          roomId: ''
         };
       }
-      componentDidMount() {
+    componentDidMount() {
       this.messagesRef.on('child_added', snapshot => {
         const message = snapshot.val();
         message.key = snapshot.key;
         this.setState({ messages: this.state.messages.concat( message ) })
        });
       }
-      handleChange(event){
+    handleChange(event){
          this.setState({
           content: event.target.value,
+          username: this.props.user,
           sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
           roomId: this.props.selectedRoom
      })
        }
-      handleSubmit(event) {
+    handleSubmit(event) {
          event.preventDefault();
         }
-      createMessage(event) {
+    createMessage(event) {
            event.preventDefault();
             this.messagesRef.push({
              sentAt: this.state.sentAt,
+             username: this.state.username,
              roomId: this.state.roomId,
              content: this.state.content
           });
@@ -48,18 +51,17 @@ class MessageList extends Component {
       console.log(this.state.roomId);
       const selectedRoom = this.props.selectedRoom;
       const messageList = this.state.messages
-
           .filter(message => message.roomId === selectedRoom)
           .map(message => {
-          return <li className="current-chat-message" key={message.key}>  {message.content} </li>
+          return <li className="chatmessage" key={message.key}> {message.username} - {message.content} </li>
           })
           return(
             <div className="messageschat">
-              <ul>{messageList} </ul>
-              <form className="messageform" onSubmit={this.handleSubmit}>
+              <ul className="messagecol"> {messageList} </ul>
+               <form className="messageform" onSubmit={this.handleSubmit}>
                 <input type ="text"  name="message" placeholder="New Message" value={this.state.content} onChange={this.handleChange}/>
                 <button type="submit" onClick={this.createMessage}>Send</button>
-                </form>
+               </form>
 
             </div>
         );

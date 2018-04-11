@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import RoomList from './components/RoomList';
 import MessageList from './components/MessageList';
+import User from './components/User';
+import './App.css';
+
 
   // Initialize Firebase
 var config = {
@@ -17,29 +20,41 @@ firebase.initializeApp(config);
 class App extends Component {
   constructor(props) {
     super(props);
+
+    this.setUser = this.setUser.bind(this);
     this.state = {
-      selectedRoom: ''
+      selectedRoom: '',
+      user: ''
     }
   }
-
   handleRoomSelection(selectedRoom) {
     this.setState({selectedRoom: selectedRoom})
     console.log(selectedRoom);
   }
-
+  setUser(user){
+    debugger;
+    this.setState({ user: user});
+    // this.setState({ user: {displayName: 'Luke Chavez', email: 'luket.chavez@gmail.com'} });
+ }
   render() {
      const displayMessages = this.state.selectedRoom;
+     const displayName = this.state.user === null ? 'Guest' : this.state.user.displayName;;
     return (
 
-      <div>
-         <h3> Bloc Chat App </h3>
-         <aside className="roomList">
-          <RoomList firebase={firebase}
-            onRoomSelection={(selected) => this.handleRoomSelection(selected)}/>
+       <div className='headerMain'>
+         <h3 className='title'> **Bloc Chat App** </h3>
+          <User className="User"
+          firebase={firebase}
+           setUser={this.setUser}
+            displayName ={displayName}
+             />
+             <aside className="roomList">
+              <RoomList firebase={firebase}
+              onRoomSelection={(selected) => this.handleRoomSelection(selected)}/>
 
-      <main className="active-chat-room">
-           <h2>{this.state.selectedRoom.name}</h2>
-           {displayMessages ? (<MessageList firebase={firebase} selectedRoom={this.state.selectedRoom.key} />) : (null)
+               <main className="activeroom">
+                <h2>{this.state.selectedRoom.name}</h2>
+               {displayMessages ? (<MessageList firebase={firebase} selectedRoom={this.state.selectedRoom.key} user={this.state.user.displayName} />) : (null)
               }
             </main>
         </aside>
